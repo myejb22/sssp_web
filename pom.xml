@@ -30,6 +30,7 @@
         <profile.jdk.version>1.8</profile.jdk.version>
         <aspectj.version>1.8.4</aspectj.version>
         <ehcache-core.version>2.6.11</ehcache-core.version>
+        <joda-time.version>2.9.3</joda-time.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/asm/asm -->

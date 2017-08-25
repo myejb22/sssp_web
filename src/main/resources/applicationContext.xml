@@ -60,5 +60,5 @@
     <tx:annotation-driven/>
 
     <!-- 配置 SpringData -->
-    <jpa:repositories base-package="com.myejb22.sssp" entity-manager-factory-ref="entityManagerFactory"/>
+    <jpa:repositories base-package="com.myejb22.sssp.dao" entity-manager-factory-ref="entityManagerFactory"/>
 </beans>
