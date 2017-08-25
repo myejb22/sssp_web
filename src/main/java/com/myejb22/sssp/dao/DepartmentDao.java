@@ -14,7 +14,7 @@ import java.util.List;
  * @author Andy
  * @date 2017/8/25
  */
-public interface DepartmentRepository extends JpaRepository<Department,Integer> {
+public interface DepartmentDao extends JpaRepository<Department,Integer> {
 
 
     @QueryHints({@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE,value = "true")})

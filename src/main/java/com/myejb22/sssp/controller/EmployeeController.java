@@ -1,6 +1,7 @@
 package com.myejb22.sssp.controller;
 
 import com.myejb22.sssp.entity.Employee;
+import com.myejb22.sssp.service.DepartmentService;
 import com.myejb22.sssp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,7 +9,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 /**
  * <p></p>
@@ -23,6 +28,9 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private DepartmentService departmentService;
+
     @RequestMapping(value = "/list")
     public String list(@RequestParam(value = "pageNo",required = false,defaultValue = "1") String pageNoStr, Model model) {
         int pageNo = 1 - 1;
@@ -34,5 +42,18 @@ public class EmployeeController {
         Page<Employee> page = employeeService.findByPage(pageRequest);
         model.addAttribute("page", page);
         return "emp/list";
+    }
+
+    @RequestMapping(value="/add",method= RequestMethod.GET)
+    public String input(Map<String,Object> map){
+        map.put("departments", departmentService.getAll());
+        map.put("employee", new Employee());
+        return "emp/add";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/ajaxValidateLastName")
+    public Integer validateLastName(@RequestParam(name = "lastName", required = true) String lastName) {
+        return employeeService.validateLastName(lastName);
     }
 }

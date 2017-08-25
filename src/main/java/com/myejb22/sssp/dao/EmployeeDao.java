@@ -10,4 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2017/8/25
  */
 public interface EmployeeDao extends JpaRepository<Employee,Integer> {
+
+    Employee findEmployeeByLastName(String lastName);
 }

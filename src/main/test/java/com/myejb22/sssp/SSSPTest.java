@@ -1,6 +1,6 @@
 package com.myejb22.sssp;
 
-import com.myejb22.sssp.dao.DepartmentRepository;
+import com.myejb22.sssp.dao.DepartmentDao;
 import com.myejb22.sssp.entity.Department;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -18,16 +18,16 @@ import java.util.List;
  */
 public class SSSPTest {
     private ApplicationContext ctx = null;
-    private DepartmentRepository departmentRepository;
+    private DepartmentDao departmentDao;
     {
         ctx = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
-        departmentRepository = ctx.getBean("departmentRepository", DepartmentRepository.class);
+        departmentDao = ctx.getBean("departmentDao", DepartmentDao.class);
     }
 
     @Test
     public void testFindAll() {
-        List<Department> departmentList = departmentRepository.getAll();
-        departmentList = departmentRepository.getAll();
+        List<Department> departmentList = departmentDao.getAll();
+        departmentList = departmentDao.getAll();
     }
 
     @Test
