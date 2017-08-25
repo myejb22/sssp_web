@@ -10,7 +10,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jpa.version>1.0.1.Final</jpa.version>
         <hibernate.version>4.3.11.Final</hibernate.version>
         <mysql.version>5.1.29</mysql.version>
         <slf4j.version>1.6.4</slf4j.version>
@@ -31,6 +30,7 @@
         <aspectj.version>1.8.4</aspectj.version>
         <ehcache-core.version>2.6.11</ehcache-core.version>
         <joda-time.version>2.9.3</joda-time.version>
+        <jstl.version>1.2</jstl.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/asm/asm -->
@@ -90,7 +90,6 @@
             <version>${commons.codec.version}</version>
         </dependency>
         <!--   Apache commons depy end -->
-
         <!--spring的依赖包-->
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
         <dependency>
@@ -134,6 +133,7 @@
             <version>${spring.version}</version>
         </dependency>
 
+
         <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -170,12 +170,7 @@
             <version>${aspectj.version}</version>
         </dependency>
 
-        <!-- JPA API -->
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>${jpa.version}</version>
-        </dependency>
+<!--########-->
 
         <!-- Hibernate JPA Support -->
         <dependency>
@@ -183,7 +178,6 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -212,6 +206,7 @@
             <version>${ehcache-core.version}</version>
         </dependency>
 
+<!--#############-->
         <!-- test -->
         <dependency>
             <groupId>junit</groupId>
@@ -225,6 +220,12 @@
             <groupId>c3p0</groupId>
             <artifactId>c3p0</artifactId>
             <version>${c3p0.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/jstl/jstl -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
         </dependency>
 
         <dependency>
