@@ -1,5 +1,7 @@
 package com.myejb22.sssp.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,13 +11,15 @@ import java.util.Date;
  * @author Andy
  * @date 2017/8/25
  */
-@Table(name = "ssp_department")
+@Table(name = "ssp_employee")
 @Entity
 public class Employee {
 
     private Integer id;
     private String lastName;
     private String email;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDay;
     private Date createDate;
     private Department department;
