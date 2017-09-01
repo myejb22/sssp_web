@@ -14,7 +14,7 @@
     </context:component-scan>
 
     <!--读取数据的资源文件-->
-    <context:property-placeholder location="classpath:db.properties"/>
+    <context:property-placeholder location="classpath:db.properties,redis.properties"/>
 
     <!--配置数据源-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -51,6 +51,33 @@
     <!--配置事务管理器-->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!--redis配置-->
+    <bean id="jedisShardInfo" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" type="java.lang.String" value="${redis.master1.host}"/>
+        <constructor-arg index="1" type="int" value="${redis.master1.port}"/>
+        <property name="password" value="${redis.master1.pass}"/>
+        <property name="connectionTimeout" value="${redis.master1.timeout}"/>
+    </bean>
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.pool.maxTotal}" />
+        <property name="maxIdle" value="${redis.pool.maxIdle}" />
+        <property name="minIdle" value="${redis.pool.minIdle}" />
+        <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />
+    </bean>
+
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="shardInfo" ref="jedisShardInfo"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+        <property name="database" value="${redis.master1.database}"/>
+        <property name="usePool" value="true"/>
+    </bean>
+
+    <!--redis模版-->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
     </bean>
 
     <!-- 配置 SpringData -->
