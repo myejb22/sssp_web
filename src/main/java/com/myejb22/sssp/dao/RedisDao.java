@@ -1,5 +1,6 @@
 package com.myejb22.sssp.dao;
 
+import com.myejb22.sssp.util.SerializeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -267,6 +268,33 @@ public class RedisDao {
             byte[] redisKey = redisTemplate.getStringSerializer().serialize(key);
             byte[] redisVal = redisTemplate.getStringSerializer().serialize(value);
             return redisTemplate.getStringSerializer().deserialize(connection.getSet(redisKey, redisVal));
+        });
+    }
+
+    /**
+     *
+     * @param key
+     * @param t
+     * @param <T>
+     * @return
+     */
+    public <T> Boolean lPush(String key, T t) {
+       return redisTemplate.execute((RedisCallback<Boolean>) connection ->{
+            byte[] redisKey = redisTemplate.getStringSerializer().serialize(key);
+            byte[] redisVal = SerializeUtil.serialize(t);
+            return connection.lPush(redisKey, redisVal) > 0;
+        });
+    }
+
+    public <T> Boolean lPushList(String key, List<T> list) {
+        return redisTemplate.execute((RedisCallback <Boolean>) connection ->{
+            byte[] redisKey = redisTemplate.getStringSerializer().serialize(key);
+            if (null != list && list.size() > 0) {
+                list.forEach(t -> {
+                    connection.rPush(redisKey, SerializeUtil.serialize(t));
+                });
+            }
+            return true;
         });
     }
 

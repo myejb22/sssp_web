@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -75,6 +76,8 @@ public class SSSPTest {
        // redisDao.mSet(new String[]{"k2","k3","k6"},new String[]{"v2","v3","v6"});
        /* List<String> list = redisDao.mGet("k2", "k3", "k6");
         System.out.println(list);*/
-        System.out.println(redisDao.getSet("k7", "v7"));
+       // System.out.println(redisDao.getSet("k7", "v7"));
+        System.out.println(BigDecimal.valueOf(1.235641).setScale(0, BigDecimal.ROUND_UP));
+        redisDao.lPush("list01","test");
     }
 }
