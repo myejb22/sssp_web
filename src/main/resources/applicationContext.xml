@@ -14,7 +14,7 @@
     </context:component-scan>
 
     <!--读取数据的资源文件-->
-    <context:property-placeholder location="classpath:db.properties,redis.properties"/>
+    <context:property-placeholder location="classpath:db.properties,classpath:redis.properties"/>
 
     <!--配置数据源-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
