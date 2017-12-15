@@ -27,7 +27,6 @@
         <cglib.version>2.2.2</cglib.version>
         <c3p0.version>0.9.1.2</c3p0.version>
         <profile.jdk.version>1.8</profile.jdk.version>
-        <aspectj.version>1.8.4</aspectj.version>
         <ehcache-core.version>2.6.11</ehcache-core.version>
         <joda-time.version>2.9.3</joda-time.version>
         <jstl.version>1.2</jstl.version>
@@ -35,6 +34,7 @@
         <redis.version>2.9.0</redis.version>
         <gson.version>2.8.1</gson.version>
         <mongodb.version>3.5.0</mongodb.version>
+        <scala.version>2.11.7</scala.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/asm/asm -->
@@ -178,16 +178,11 @@
             <artifactId>spring-aop</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
             <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>${aspectj.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!--########-->
 
@@ -267,6 +262,19 @@
             <version>${mongodb.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+
+       <!-- <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <version>${scala.version}</version>
+            <scope>compile</scope>
+        </dependency>-->
+
     </dependencies>
 
     <build>
@@ -308,17 +316,69 @@
                     </configuration>
                 </plugin>
 
+                <!--scala插件-->
+                <plugin>
+                    <groupId>net.alchim31.maven</groupId>
+                    <artifactId>scala-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>scala-compile-first</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>add-source</goal>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>scala-test-compile</id>
+                            <phase>process-test-resources</phase>
+                            <goals>
+                                <goal>testCompile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
                 <!-- 制定jdk版本插件 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.1</version>
                     <configuration>
-                        <source>${profile.jdk.version}</source>
-                        <target>${profile.jdk.version}</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <source>1.8</source>
+                        <target>1.8</target>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
+
+                <!--<plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.5.3</version>
+                    <configuration>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                        <archive>
+                            <manifest>
+                                <mainClass>ScalaRunner</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>-->
 
                 <!-- jetty插件 -->
                 <plugin>
